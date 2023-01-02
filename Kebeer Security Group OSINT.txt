@@ -1,0 +1,82 @@
+Company : Kebeer Seccurity Group
+Category: **OSINT**  
+
+#Question NO 1
+
+You have been applying to entry-level cybersecurity jobs focused on reconnaissance and open source intelligence (OSINT). Great news! You got an interview with a small cybersecurity company; the Keeber Security Group. Before interviewing, they want to test your skills through a series of challenges oriented around investigating the Keeber Security Group.
+
+About Company
+The first step in your investigation is to find more information about the company itself. All we know is that the company is named Keeber Security Group and they are a cybersecurity startup. To start, help us find the person who registered their domain.
+
+### Solution
+
+Starting off we get this prompt that the Keeber Security Group about them wanting us to perform an investigation on them using our OSINT knowledge. We see that someone registered a domain, so step 1 should be finding this website. Not too hard after a quick google search for Keeber Security Group.
+Here is the Link of website below
+**************
+https://keebersecuritygroup.com/
+**************
+
+We can use external websites to find out who registered the domain, such as [whois.com](https://www.whois.com).
+here is link below to find the Registrar Inforation.
+********
+https://www.whois.com/whois/keebersecuritygroup.com
+********
+On that i found a following flag
+ 
+flag: `flag{ef67b2243b195eba43c7dc797b75d75b}`
+
+***************************************************************************************************************************
+
+## Question No 2
+ 
+The Keeber Security Group is a new startup in its infant stages. The team is always changing and some people have left the company. The Keeber Security Group has been quick with changing their website to reflect these changes, but there must be some way to find ex-employees. Find an ex-employee through the group's website. The flag is in regular format.
+
+### Solution
+I started off looking at the Github for this one, and found a contributor named `Tiffany Douglas` who wasn’t on the team section of the website. However, I couldn't find the flag there. I then pivoted to the "Wayback Machine" and noticed a snapshot was taken on 19 April 2022
+
+Check the below link 
+***
+http://web.archive.org/web/20220915000000*/https://keebersecuritygroup.com/team/
+***
+When i opened the event on 19 i found a keeber security group team page. Looking at this, we can find the flag under Tiffany's name in the team section.
+
+flag: `flag{cddb59d78a6d50905340a62852e315c9}`
+
+Check the Link Below
+*******
+http://web.archive.org/web/20220419212259/https://keebersecuritygroup.com/team/
+*******
+
+***************************************************************************************************************************
+
+## Question No 3
+ 
+The ex-employee you found was fired for "committing a secret to public github repositories". Find the committed secret, and use that to find confidential company information. The flag is in regular format.
+
+### Soution
+
+To find the committed secret, I turned to github to see if there were any commits by Tiffany that were undone. Under the ".gitignore" in "security-evaluation-workflow" we see a secret that Tiffany must have added by mistake. 
+
+Check the Link below
+*******
+https://github.com/keebersecuritygroup/security-evaluation-workflow/commit/e76da63337cfabb12ea127af3f86168e9dd08428
+*******
+
+Here i found a file named asana_secret.tx. I wasn’t sure what asana was at first, but after googling it seems that it’s some software that Keeber uses. I went to the [asana documentation](https://developers.asana.com/docs) to see what we could do with this and came across a way to access the api: 
+
+****
+curl https://app.asana.com/api/1.0/users/me \  
+  -H "Authorization: Bearer 0/a7f89e98g007e0s07da763a"
+****
+
+Replacing the string with the one in the github, we get the flag.
+
+flag: `flag{49305a2a9dcc503cb2b1fdeef8a7ac04}`
+
+***************************************************************************************************************************
+####Question No 4
+ After all of the damage the ex-employee’s mistakes caused to the company, the Keeber Security Group is suing them for negligence! In order to file a proper lawsuit, we need to know where they are so someone can go and serve them. Can you find the ex-employee’s new workplace? 
+Her instagram profile is: https://www.instagram.com/tif.hearts.science/
+####Solution
+i visited her instagram account and started from the first post then searching on google about the post anf try to find the location after sone trying i found the place Named PortLand 
+
